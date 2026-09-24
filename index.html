@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'">
+  <title>灵感管理</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <span class="app-title">🌱 灵感管理</span>
+    <div class="dropdown">
+      <button id="btnNew">＋ 新建</button>
+      <div class="dropdown-menu" id="newMenu">
+        <button class="dropdown-item" data-type="inspiration">💡 新建灵感</button>
+        <button class="dropdown-item" data-type="plan">📝 新建计划</button>
+        <button class="dropdown-item" data-type="solution">🧩 新建方案</button>
+        <button class="dropdown-item" data-type="project">🎯 新建项目</button>
+      </div>
+    </div>
+    <div class="view-tabs">
+      <button id="btnHome" class="filter-active">🏠 主界面</button>
+      <button id="btnBin">🗑 回收站</button>
+      <button id="btnOpenDataFolder" title="打开数据文件夹">📁 数据文件夹</button>
+    </div>
+    <div class="spacer"></div>
+    <input id="searchInput" class="search-input" type="text" placeholder="🔍 搜索标题或内容">
+    <div class="dropdown">
+      <button id="btnTypeFilter">类型 ▾</button>
+      <div class="dropdown-menu" id="typeMenu">
+        <button class="dropdown-item" data-type="">全部类型</button>
+        <button class="dropdown-item" data-type="inspiration">💡 灵感</button>
+        <button class="dropdown-item" data-type="plan">📝 计划</button>
+        <button class="dropdown-item" data-type="solution">🧩 方案</button>
+        <button class="dropdown-item" data-type="project">🎯 项目</button>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button id="btnImportanceFilter">星级 ▾</button>
+      <div class="dropdown-menu" id="importanceMenu">
+        <button class="dropdown-item" data-min="0">全部星级</button>
+        <button class="dropdown-item" data-min="1">★ 1 星以上</button>
+        <button class="dropdown-item" data-min="2">★ 2 星以上</button>
+        <button class="dropdown-item" data-min="3">★ 3 星以上</button>
+        <button class="dropdown-item" data-min="4">★ 4 星以上</button>
+        <button class="dropdown-item" data-min="5">★ 5 星</button>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button id="btnTagFilter">标签 ▾</button>
+      <div class="dropdown-menu" id="tagMenu"></div>
+    </div>
+  </header>
+
+  <main>
+    <aside class="tree-panel">
+      <div id="tree"></div>
+      <div class="empty-hint" id="treeEmpty" style="display:none">
+        还没有条目<br>点左上角「＋ 新建」开始
+      </div>
+      <div class="batch-bar" id="batchBar" style="display:none">
+        <div class="batch-head">
+          <span id="batchInfo">已选 0 项</span>
+          <button id="btnClearMulti" class="batch-clear" title="取消多选">✕ 取消选择</button>
+        </div>
+        <div class="batch-field">
+          <span class="field-label">重要程度</span>
+          <div id="batchStars" class="stars"></div>
+        </div>
+        <div class="tag-add-row">
+          <input id="batchTagInput" class="tag-input" type="text" placeholder="给选中项统一添加标签">
+          <button id="btnBatchAddTag" class="primary">添加</button>
+        </div>
+        <div class="tag-chips" id="batchTagChips"></div>
+      </div>
+    </aside>
+
+    <section class="detail-panel">
+      <div class="placeholder" id="noSelection">← 从左侧选择一个条目查看详情，或新建一个</div>
+      <div id="editor" hidden>
+        <div class="type-badge" id="typeBadge"></div>
+        <input id="titleInput" type="text" placeholder="标题">
+        <textarea id="contentInput" placeholder="详细内容…"></textarea>
+        <div class="field-row">
+          <span class="field-label">重要程度</span>
+          <div id="stars" class="stars"></div>
+        </div>
+        <div class="field-row">
+          <span class="field-label">标签</span>
+          <div class="tag-area">
+            <div class="tag-chips" id="tagChips"></div>
+            <div class="tag-add-row">
+              <input id="tagInput" class="tag-input" type="text" placeholder="输入标签，回车或点「添加」">
+              <button id="btnAddTag" class="primary">添加</button>
+            </div>
+          </div>
+        </div>
+        <div class="detail-meta" id="metaInfo"></div>
+        <div class="actions">
+          <button id="btnSave" class="primary">保存</button>
+          <div class="dropdown">
+            <button id="btnDerive">派生下级 ▾</button>
+            <div class="dropdown-menu" id="deriveMenu"></div>
+          </div>
+          <button id="btnTrash" class="danger">删除</button>
+        </div>
+      </div>
+      <div id="binEditor" hidden>
+        <div class="type-badge" id="binTypeBadge"></div>
+        <div class="bin-title" id="binTitle"></div>
+        <div class="bin-content" id="binContent"></div>
+        <div class="detail-meta" id="binMeta"></div>
+        <div class="actions">
+          <button id="btnRestore" class="primary">↩ 恢复</button>
+          <button id="btnPurge" class="danger">彻底删除</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
