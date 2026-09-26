@@ -6,7 +6,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder --win portable"
+    "dist": "electron-builder --win nsis"
   },
   "license": "MIT",
   "private": true,
@@ -23,11 +23,15 @@
       "assets/**/*"
     ],
     "win": {
-      "target": "portable",
+      "target": "nsis",
       "icon": "assets/icon.png"
     },
-    "portable": {
-      "artifactName": "灵感管理-${version}-便携版.exe"
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": true,
+      "artifactName": "灵感管理-${version}-安装版.exe"
     }
   },
   "devDependencies": {
